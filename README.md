@@ -1,3 +1,4 @@
 # algo_design
 
-added C++ and Python programs
+## Important algorithms
+1. 3sum https://leetcode.com/problems/3sum/description/
