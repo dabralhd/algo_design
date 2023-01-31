@@ -10,6 +10,7 @@ math_functions.cpp math_functions.h
 rotated_sorted_array.cpp rotated_sorted_array.h
 )
 
+add_subdirectory(binary_tree)
 add_library(algo_library OBJECT ${ALGO_SOURCES})
 
 set(HEADER_FILES binary_search.h math_functions.h rotated_sorted_array.h)

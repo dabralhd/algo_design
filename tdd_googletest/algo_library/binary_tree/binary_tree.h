@@ -13,12 +13,10 @@ using namespace std;
 
 struct TreeNode {
 	int val;
-	unique_ptr<TreeNode> left;
-	unique_ptr<TreeNode> left;
-
+	unique_ptr<TreeNode> left, right;
 };
 
-int height()
+int height(unique_ptr<TreeNode>& root);
 
 
 #endif /* SRC_BINARY_TREE_H_ */
