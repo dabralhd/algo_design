@@ -5,8 +5,8 @@ project(algo_library)
 set(CMAKE_CXX_STANDARD 14)
 
 set(ALGO_SOURCES
-bin_search.cpp binary_search.h
-math_functions.cpp math_functions.h
+#bin_search.cpp binary_search.h
+#math_functions.cpp math_functions.h
 rotated_sorted_array.cpp rotated_sorted_array.h
 )
 
