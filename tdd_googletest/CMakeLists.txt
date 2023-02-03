@@ -22,10 +22,14 @@ add_executable(
   hello_test.cc
   tests.cpp
 )
+
 target_link_libraries(
   hello_test
   algo_library
   GTest::gtest_main
+  bin_search
+  binary_tree
+  math_functions
 )
 
 target_include_directories(hello_test PUBLIC algo_library)
