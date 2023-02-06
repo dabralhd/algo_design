@@ -18,21 +18,21 @@ enable_testing()
 add_subdirectory(algo_library)
 
 add_executable(
-  hello_test
+  algo_test
   hello_test.cc
   tests.cpp
 )
 
 target_link_libraries(
-  hello_test
+  algo_test
   algo_library
   GTest::gtest_main
-  bin_search
-  binary_tree
-  math_functions
+  #bin_search
+  #binary_tree
+  #math_functions
 )
 
-target_include_directories(hello_test PUBLIC algo_library)
+target_include_directories(algo_test PUBLIC algo_library)
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(algo_test)

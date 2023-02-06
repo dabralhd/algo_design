@@ -6,7 +6,7 @@
  */
 #include "bin_search.h"
 
-int binary_search(vector<int> nums, int target) {
+int binary_search(const vector<int>& nums, int target) {
 	int low {0};
 	int high {nums.size() - 1};
 

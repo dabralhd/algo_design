@@ -10,11 +10,16 @@ set(ALGO_SOURCES
 rotated_sorted_array.cpp rotated_sorted_array.h
 )
 
+add_subdirectory(BST)
 add_subdirectory(binary_tree)
 add_subdirectory(bin_search)
 add_subdirectory(math_functions)
 
 add_library(algo_library OBJECT ${ALGO_SOURCES})
+
+target_link_libraries(algo_library PUBLIC bin_search)
+
+target_include_directories(algo_library PUBLIC bin_search)
 
 #set(HEADER_FILES rotated_sorted_array.h)
 

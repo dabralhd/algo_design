@@ -11,6 +11,6 @@
 
 using namespace std;
 
-int binary_search(vector<int> nums, int target);
+int binary_search(const vector<int>& nums, int target);
 
 #endif /* INC_BINARY_SEARCH_H_ */

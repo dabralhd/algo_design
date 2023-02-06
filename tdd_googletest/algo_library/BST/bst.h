@@ -16,6 +16,6 @@ struct TreeNode{
 void inorder(const unique_ptr<TreeNode>& root, vector<int>& vi);
 void postorder(const unique_ptr<TreeNode>& root, vector<int>& vi);
 void preorder(const unique_ptr<TreeNode>& root, vector<int>& vi);
-void insert(unique_ptr<TreeNode> node, int val);
+void insert(unique_ptr<TreeNode>& node, int val);
 
-#endif __BST__
+#endif // __BST__
