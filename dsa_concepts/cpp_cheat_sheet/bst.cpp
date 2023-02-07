@@ -78,7 +78,7 @@ int findMin(unique_ptr<TreeNode>& root) {
     return ptr->val;
 }
 
-int findMax(unique_ptr<TreeNode>& root) {<
+int findMax(unique_ptr<TreeNode>& root) {
     if(root && root->right)
         findMax(root->right);
     else if(root)   
@@ -99,9 +99,9 @@ void remove(int x, unique_ptr<TreeNode>& root){
                 p = r;
                 r = &((*r)->left);
             }
-            auto ret = (*r)->val;
-            root->val = ret;
-            delete r; // can we remove this delete here??
+            root->val = (*r)->val;
+            (*r).reset(nullptr);
+
         } else {
             auto& x = (root->left)? root->left : root->right;
             root->val = x->val;        
@@ -123,5 +123,15 @@ int main() {
     insert(root, 25);
     insert(root, 7);
     cout << root;
+
+    cout <<"removing 5: " << endl;
+    remove(5, root);
+    cout <<root;
+
+    cout <<"removing 15: " << endl;
+    remove(15, root);
+    cout <<root;
+
+
     return 0;
 }
