@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -34,6 +35,25 @@ void preorder(const unique_ptr<TreeNode>& root, vector<int>& vi) {
     }
 }
 
+
+void level_order(const unique_ptr<TreeNode>& root, vector<int>& vi) {    
+    if (root!=nullptr) {
+    queue<TreeNode*> q;
+	q.push(root.get());
+
+	while(!q.empty()) {
+		auto front = q.front();
+		q.pop();
+		if(front->left!=nullptr)
+			q.push(front->left.get());
+		if(front->right!=nullptr)
+			q.push(front->right.get());
+		vi.push_back(front->val);
+	}
+    }
+}
+
+
 void insert(unique_ptr<TreeNode>& node, int val) {
     if(node==nullptr) {
         node = make_unique<TreeNode>(val);
@@ -64,6 +84,10 @@ ostream& operator<<(ostream& os, const unique_ptr<TreeNode>& root) {
 
     postorder(root, vi);   
     os << "\tpostorder: " << vi << endl;
+    vi.erase(vi.begin(), vi.end());
+
+    level_order(root, vi);   
+    os << "\tlevel order: " << vi << endl;
     vi.erase(vi.begin(), vi.end());
 
     return os;
