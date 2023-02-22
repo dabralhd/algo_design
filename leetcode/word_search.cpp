@@ -1,5 +1,4 @@
 // https://leetcode.com/problems/word-search/
-
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -49,16 +48,17 @@ public:
 
         for(int r=0; r<rows; r++) {
             for(int c=0; c<cols; c++) {
-                unordered_set<node_t, node_hasher> adj;   
-                node_t u {board[r][c], r, c};             
+                node_t u {board[r][c], r, c}; 
+                unordered_set<node_t, node_hasher> adj;            
                 if(r+1<rows)
-                    g[u].insert(node_t{board[r+1][c], r+1, c});
+                    adj.emplace(node_t{board[r+1][c], r+1, c});
                 if(r-1>=0)
-                    g[u].emplace(node_t{board[r-1][c], r-1, c});
+                    adj.emplace(node_t{board[r-1][c], r-1, c});
                 if(c+1<cols)
-                    g[u].emplace(node_t{board[r][c+1], r, c+1});
+                    adj.emplace(node_t{board[r][c+1], r, c+1});
                 if(c-1>=0)
-                    g[u].emplace(node_t{board[r][c-1], r, c-1});
+                    adj.emplace(node_t{board[r][c-1], r, c-1});
+                g[u] = adj;
             }
         }
         return g;
@@ -92,11 +92,11 @@ public:
         auto g = makeGraph(board);     
         for(int i=0; i<board.size(); i++) {   
             for(int j=0; j<board[i].size(); j++) {
-                if( board[i][j]==word[0] ) {
+               // if( board[i][j]==word[0] ) {
                     vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size()));   
                     if(dfs_visit(g, visited, {board[i][j], i, j}, word, 0))
                         return true;
-                }
+              //  }
             }
         }
         return false;        
@@ -117,39 +117,21 @@ ostream& operator<<(ostream& os, const vector<vector<char>>& vc) {
     return os;
 }
 
-int main() {
+
+void test2() {
     vector<vector<char>> board(3);
+// [["A","B","C","E"],["S","F","E","S"],["A","D","E","E"]]
 
     board[0] = {'a', 'b', 'c', 'e'};
-    board[1] = {'s', 'f', 'c', 's'};
+    board[1] = {'s', 'f', 'e', 's'};
     board[2] = {'a', 'd', 'e', 'e'};   
 
     cout << board;
     string str;
-    str = "see";
-    //cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;
+    str = "abceseedfs";
+    cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;                   
+}
 
-    str = "abfc";
-    //cout << "checking if " << str << "  exists: "<< Solution().exist(board, str) << endl;
-
-    str = "abfe";
-    //cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;  
-
-    str = "abccfda";
-    //cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;  
-
-    str = "abfcss";
-    //cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;  
-
-    str = "abfcse";
-    //cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl; 
-
-    str = "abfcsec";
-    cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;        
-
-    str = "abfcsecb";
-    cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;   
-
-    str = "abfdees";
-    cout << "checking if " << str << " exists: "<< Solution().exist(board, str) << endl;                     
+int main() {
+    test2();
 }
