@@ -9,8 +9,8 @@ void test_basic_api();
 void test_pass_ref_params();
 
 int main() {
-    // test_basic_api();
-    test_pass_ref_params();
+    test_basic_api();
+    //test_pass_ref_params();
 }
 
 void test_basic_api() {

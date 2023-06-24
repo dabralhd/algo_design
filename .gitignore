@@ -2,5 +2,6 @@ tdd_googletest/algo_library/Debug/
 tdd_googletest/unit_tests/Debug/
 **/.ipynb_checkpoints
 **/__pycache__/
+**/*.exe
 
 
