@@ -28,6 +28,8 @@ int main() {
     for_each(arr.begin(), arr.end(), [](int& x) { x += 2;});
     for(const auto x : arr)
         cout << x << " ";    
-
+    int obj = 20;
+    unique_ptr<int> up1(&obj);
+    cout << endl << "*up1: " << *up1 << endl;
 
 }

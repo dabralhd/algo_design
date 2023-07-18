@@ -11,6 +11,7 @@ constexpr static int k_invalid_num = numeric_limits<int>::min();
 
 struct TreeNode {
     int val;
+    unsigned int subtree_node_count;
     unique_ptr<TreeNode> left, right;
     TreeNode(int v) : 
     val {v}, left {nullptr}, right {nullptr} {}
@@ -44,26 +45,23 @@ NodePtrType make_tree(const vector<int>& nums) {
 
     auto tree = get_node(nums[0]);
     queue<TreeNode*> q;
-    if (nums.size()) {        
-        q.push(tree.get());
-        int idx = 1;
-        while(!q.empty() && idx<nums.size()) {
-            auto& curr = q.front();
-            q.pop();
-            int val = nums[idx];
-            idx++;
-            if(val != k_invalid_num) {
-                curr->left = get_node(val);
-                q.push(curr->left.get());
-            }
+    q.push(tree.get());
+    int idx = 1;
+    while(!q.empty() && idx<nums.size()) {
+        auto& curr = q.front();
+        q.pop();
+        int val = nums[idx];
+        idx++;
+        if(val != k_invalid_num) {
+            curr->left = get_node(val);
+            q.push(curr->left.get());
+        }
 
-            if (idx < nums.size())
-                val = nums[idx]; 
-                idx++;
-                if(val != k_invalid_num) {
-                    curr->right = get_node(val);
-                    q.push(curr->right.get());
-                }
+        if (idx < nums.size() && nums[idx] != k_invalid_num) {
+            val = nums[idx]; 
+            idx++;
+            curr->right = get_node(val);
+            q.push(curr->right.get());
         }
     }
     return tree;
@@ -201,6 +199,25 @@ void get_pathSum_binary_helper(const NodePtrType& root, PathSum_Info_Binary& inf
     }
 }
 
+int get_pathsum_int_helper(const NodePtrType& root) {
+    if (root) {
+        auto left = get_pathsum_int_helper(root->left);
+        auto right = get_pathsum_int_helper(root->right);
+        return root->val + left + right;
+    }
+    return 0;
+}
+
+int get_pathsum_int(const NodePtrType& root) {
+    if (root) {
+        auto left = get_pathsum_int(root->left);
+        auto right = get_pathsum_int(root->right);
+        return root->val + left + right;
+    }
+    return 0;
+
+}
+
 unsigned int get_pathSum_binary(const NodePtrType& root) {
     PathSum_Info_Binary info;
     get_pathSum_binary_helper(root, info);
@@ -326,11 +343,23 @@ void test_pathsum_binary() {
     k_invalid_num, k_invalid_num, k_invalid_num, 1, k_invalid_num, k_invalid_num,});
 }
 
+void test_get_pathsum_int_helper(vector<int> vi) {
+    auto tree = make_tree(vi);
+    inorder(tree);
+    cout << endl;
+    cout << "pathsum is: " << get_pathsum_int(tree) << endl;
+}
+
+void test_get_pathsum() {
+    test_get_pathsum_int_helper({10, 20, 30, 100});
+}
+
 
 int main() {
     //test_traversal();
     //test_get_node_with_value_1();
     //test_lca();
     //test_is_height_balanced();
-    test_pathsum_binary();
-}
+    //test_pathsum_binary();
+    test_get_pathsum();
+}  
