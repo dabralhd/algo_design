@@ -7,12 +7,27 @@ class unique_ptr {
     private:
         T* cp;
     public:
-        unique_ptr<T> (T *ptr=nullptr) : cp {ptr} {}
-        unique_ptr<T> (unique_ptr<T>&& up2) : cp {std::move(up2.cp)}
+        explicit unique_ptr(T *ptr=nullptr) : cp {ptr} {}
+
+        unique_ptr(const unique_ptr& other) = delete;
+
+        unique_ptr& operator=(const unique_ptr& other) = delete;
+
+        unique_ptr(unique_ptr&& other) : cp {other.cp}
         {
-            up2.cp = nullptr; 
+            other.cp = nullptr; 
         }
-        unique_ptr<T> operator=(unique_ptr<T> rhs) = delete;
+
+        unique_ptr& operator=(unique_ptr&& other) 
+        {
+            if(this!=&other) {
+                cp = other.cp;
+                delete other;
+                other.cp = nullptr;
+            }
+            return *this;
+        }
+
         T& operator*() {
             return *cp;
         }
@@ -21,7 +36,7 @@ class unique_ptr {
             return cp;
         }
 
-        ~unique_ptr<T>() {
+        ~unique_ptr() {
             delete cp;
         }
 };
@@ -29,13 +44,13 @@ class unique_ptr {
 struct MyClass {
     int a;
     int b;
+    MyClass(int a=1, int b=2) : a{a}, b{b}
+    {}
 };
 
 int main() {
-    MyClass x;
-    x.a = 10;
-    x.b = 20;
-    unique_ptr<MyClass> up(&x);
+    MyClass* ptr = new MyClass();
+    unique_ptr<MyClass> up(ptr);
     cout << endl << up->a <<", " << up->b << endl;
     return 0;
 }

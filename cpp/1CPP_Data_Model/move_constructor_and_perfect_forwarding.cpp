@@ -38,16 +38,24 @@ class X {
 int ix = 100;
 X x(200);
 
+unique_ptr<X> f(unique_ptr<X> x) {
+    x->incr();
+    return x;
+}
+
 int main()
 {
     unique_ptr<X> up1 = make_unique<X>(move(x));
     cout << "up1 value: " << up1->get_val() << endl;
-    cout << "x: " << x.get_val() << endl;
+    //cout << "x: " << x.get_val() << endl;
     
-    cout <<"incrementing x:" << endl;
-    x.incr();
+    cout <<"incrementing up1:" << endl;
+    up1->incr();
     cout << "up1 value: " << up1->get_val() << endl;
-    cout << "x: " << x.get_val() << endl;    
+    //cout << "x: " << x.get_val() << endl;    
+
+    auto up2 = f(move(up1));
+    cout << "up2 value: " << up2->get_val() << endl;
     
     return 0;
 }
