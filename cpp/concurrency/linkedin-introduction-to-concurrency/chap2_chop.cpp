@@ -7,7 +7,7 @@ using namespace std;
 bool flag = true;
 
 void chop(string vegetable, bool short_nap) {
-    cout << "<chop> chopping vegetable: " << vegetable << endl;
+    printf("<chop> chopping vegetable: %s\n", vegetable.c_str());
     unsigned long pieces = 0;
     while(flag) {
         pieces++;
@@ -18,7 +18,7 @@ void chop(string vegetable, bool short_nap) {
             this_thread::sleep_for(100ms);
 #endif            
     }
-    cout << "<chop> chopped " << vegetable << " till " << pieces << " pieces." << endl << std::flush;
+    printf("<chop> chopped %s till %ul pieces\n", vegetable.c_str(), pieces);
 }
 
 int main() {

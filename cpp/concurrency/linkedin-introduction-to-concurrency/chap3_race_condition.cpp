@@ -8,14 +8,14 @@ unsigned int count = 0;
 mutex m;
 
 void increment() {
-    //m.lock();
-    for(int i=0; i<1000000; i++) {
-       // this_thread::sleep_for(chrono::microseconds(50));
+    m.lock();
+    for(int i=0; i<1000; i++) {
+        this_thread::sleep_for(chrono::microseconds(1000));
             //m.lock();
             count++;
             //m.unlock();
     }
-    //m.unlock();
+    m.unlock();
 }
 
 int main() {

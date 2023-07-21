@@ -1,10 +1,19 @@
 #include <iostream>
 #include <queue>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
+struct Comp {
+  bool operator()(const int x, const int y) { return y<x; }
+
+};
+
 int main() {
   priority_queue<int> mypq;
+
+  priority_queue<int, vector<int>, Comp> mypq2;  
   int num = 1;
 
   cout << "Entering elements at the rear end: " << endl;
@@ -13,14 +22,14 @@ int main() {
     cin >> num;
     if (num < 0) break;
 
-    mypq.push(num);
+    mypq2.push(num);
   }
 
   num = 1;
   cout << "removing element from front:" << endl;
-  while (!mypq.empty()) {
-    cout << "Element at the top of the queue is: " << mypq.top()
+  while (!mypq2.empty()) {
+    cout << "Element at the top of the queue is: " << mypq2.top()
          << endl;
-    mypq.pop();
+    mypq2.pop();
   }
 }

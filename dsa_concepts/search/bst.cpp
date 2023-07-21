@@ -51,9 +51,10 @@ void remove(int val, NodePtrType& root) {
                 root->val = p->left->val;
                 p->left = nullptr;              
             } else {
-                NodePtrType& x = root->left? root->right : root->left;                
-                root->val = x->val;
-                x.reset();
+                NodePtrType& x = root->left? root->left : root->right;                
+                //root->val = x->val;
+                //x.reset();
+                root = move(x);
             }
         }
     }
