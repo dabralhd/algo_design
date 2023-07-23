@@ -1,0 +1,32 @@
+# Compiler
+CXX := g++
+# Compiler flags
+CXXFLAGS := -std=c++20 -Wall -Wextra
+
+# Source files
+SRCS := $(wildcard *.cpp)
+# wildcard function creates a space separated list of all .cpp files in the directory
+# Object files
+OBJS := $(SRCS:.cpp=.o)
+# $(SRCS:.cpp=.o) is pattern substitution
+# Output binary name
+TARGET := singlylinkedlist
+
+# Default rule (first rule in the file is the default one)
+all: $(TARGET)
+
+# Rule to build the binary
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+# $^ all dependecnies
+# $@ target
+
+# Rule to build object files from source files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+# $< is first dependency
+
+
+# Clean rule
+clean:
+	rm -f $(OBJS) $(TARGET)
