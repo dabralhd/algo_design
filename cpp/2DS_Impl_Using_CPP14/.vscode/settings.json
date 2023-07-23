@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "list": "cpp",
+        "*.tcc": "cpp",
+        "cstdint": "cpp",
+        "stdexcept": "cpp"
+    }
+}
