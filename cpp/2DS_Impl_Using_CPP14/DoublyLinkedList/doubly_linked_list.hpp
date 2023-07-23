@@ -56,13 +56,12 @@ DoublyLinkedList::DoublyLinkedList() : sz {0}, head{make_unique<DoublyLinkedList
     head->next.reset(tail);
 }
 
-DoublyLinkedList::DoublyLinkedList(DoublyLinkedList&& other) : sz {other.sz} {  
+DoublyLinkedList::DoublyLinkedList(DoublyLinkedList&& other) : sz {other.sz}, tail{other.tail} {  
     cout << "DoublyLinkedList::ctor move" << endl;
-    tail->prev = other.tail->prev;
-    head->next.reset(other.head->next.get());
+    //head.reset(other.head.release());
+    head = move(other.head);
 
     other.tail = nullptr;
-    other.head.reset();
     other.sz = 0;
 }
 
@@ -74,9 +73,10 @@ DoublyLinkedList& DoublyLinkedList::operator=(DoublyLinkedList&& rhs) {   // cle
     return *this;
 }
 
+
 DoublyLinkedList::~DoublyLinkedList() {
     cout << "DoublyLinkedList::dtor" << endl;
-    tail->prev = nullptr;
+    tail = nullptr;
     sz = 0;
 }
 

@@ -8,11 +8,11 @@ DoublyLinkedList create_list(const vector<uint32_t>& vi32) {
     for(auto i : vi32) {
         lst.push_front(i);
     }
-    return lst;
+    return move(lst);
 }
 
 int main() {
-    auto lst = create_list({1, 78, 90, 100});    
+    auto lst = create_list({1});    
     cout << "front: " << lst.front() << ", back: " << lst.back() << endl;
     while(lst.size()) {
         cout << lst.front() << endl;
